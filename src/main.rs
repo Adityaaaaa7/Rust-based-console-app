@@ -1,40 +1,45 @@
 use std::io;
 
-fn main() {
-    let student_name = input("Enter student's name: ");
-    let total_marks: f64 = input("Enter total marks obtained: ")
-        .trim()
-        .parse()
-        .expect("Please enter a valid number");
-    let num_subjects: f64 = input("Enter number of subjects: ")
-        .trim()
-        .parse()
-        .expect("Please enter a valid number");
+fn calculate_average(total_marks: f32, subjects: u32) -> f32 {
+    total_marks / subjects as f32
+}
 
-    let average = calculate_average(total_marks, num_subjects);
+fn assign_grade(average: f32) -> char {
+    if average >= 90.0 {
+        'A'
+    } else if average >= 75.0 {
+        'B'
+    } else if average >= 60.0 {
+        'C'
+    } else {
+        'D'
+    }
+}
+
+fn main() {
+    let mut name = String::new();
+    let mut total_marks_input = String::new();
+    let mut subjects_input = String::new();
+
+    println!("Enter student name:");
+    io::stdin().read_line(&mut name).expect("Failed to read name");
+
+    println!("Enter total marks obtained:");
+    io::stdin().read_line(&mut total_marks_input).expect("Failed to read marks");
+
+    println!("Enter number of subjects:");
+    io::stdin().read_line(&mut subjects_input).expect("Failed to read subjects");
+
+    let name = name.trim();
+    let total_marks: f32 = total_marks_input.trim().parse().expect("Invalid marks input");
+    let subjects: u32 = subjects_input.trim().parse().expect("Invalid subject count");
+
+    let average = calculate_average(total_marks, subjects);
     let grade = assign_grade(average);
 
-    println!("\nStudent: {}", student_name.trim());
-    println!("Average marks: {:.2}", average);
-    println!("Grade: {}", grade);
-}
-
-fn input(prompt: &str) -> String {
-    println!("{}", prompt);
-    let mut input_str = String::new();
-    io::stdin().read_line(&mut input_str).expect("Failed to read input");
-    input_str
-}
-
-fn calculate_average(total: f64, subjects: f64) -> f64 {
-    total / subjects
-}
-
-fn assign_grade(avg: f64) -> char {
-    match avg {
-        avg if avg >= 90.0 => 'A',
-        avg if avg >= 75.0 => 'B',
-        avg if avg >= 60.0 => 'C',
-        _ => 'D',
-    }
+    println!("\nStudent Report");
+    println!("===============");
+    println!("Name    : {}", name);
+    println!("Average : {:.2}", average);
+    println!("Grade   : {}", grade);
 }
