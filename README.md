@@ -16,7 +16,7 @@ It calculates the average marks using a custom function and assigns a grade base
 
    ```bash
    git clone https://github.com/Adityaaaaa7/Rust-based-console-app
-   cd student-grade-app
+   cd Rust-based-console-app
 
 3. Run the app: 
 
